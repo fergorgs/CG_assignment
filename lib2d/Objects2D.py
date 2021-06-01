@@ -1,3 +1,9 @@
+# GRUPO
+# Alexandre Galocha Pinto Junior  10734706
+# Eduardo Pirro                   10734665
+# Fernando Gorgulho Fayet         10734407
+
+
 import glfw
 from OpenGL.GL import *
 import OpenGL.GL.shaders
