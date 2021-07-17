@@ -63,9 +63,9 @@ class Object3D:
         self.a_x = 0                    # x axies angle, around it's center
         self.a_y = 0                    # y axies angle, around it's center
         self.a_z = 0                    # z axies angle, around it's center
-        self.ka = 0                     # coeficiente de reflexão ambiente
-        self.kd = 0.3                     # coeficiente de reflexão difusa
-        self.ks = 0                     # coeficiente de reflexão especular
+        self.ka = 0.3                     # coeficiente de reflexão ambiente
+        self.kd = 0.3                    # coeficiente de reflexão difusa
+        self.ks = 0.3                     # coeficiente de reflexão especular
         self.ns = 1                     # expoente de reflexão especular
 
 
