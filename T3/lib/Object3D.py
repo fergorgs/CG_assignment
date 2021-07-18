@@ -63,10 +63,15 @@ class Object3D:
         self.a_x = 0                    # x axies angle, around it's center
         self.a_y = 0                    # y axies angle, around it's center
         self.a_z = 0                    # z axies angle, around it's center
-        self.ka = 0.3                     # coeficiente de reflexão ambiente
-        self.kd = 0.3                    # coeficiente de reflexão difusa
-        self.ks = 0.3                     # coeficiente de reflexão especular
+        self.ka = 0.15                     # coeficiente de reflexão ambiente
+        self.kd = 1                    # coeficiente de reflexão difusa
+        self.ks = 0                     # coeficiente de reflexão especular
         self.ns = 1                     # expoente de reflexão especular
+
+        self.na_x = 0                    # x axies angle, around it's center
+        self.na_y = 0                    # y axies angle, around it's center
+        self.na_z = 0                    # z axies angle, around it's center
+        self.invert_norms = False
 
 
 
@@ -97,6 +102,31 @@ class Object3D:
 
 
 
+    # __model: calculates the model's model matrix
+    # Using glm functions, applies translation, rotation in the 3 axies,
+    # and scale to the model
+    def __normal_model(self):
+        matrix_transform = glm.mat4(1.0)
+                                                        
+        matrix_transform = glm.rotate(
+            matrix_transform, math.radians(self.a_x),
+            glm.vec3(1.0, 0.0, 0.0))
+        matrix_transform = glm.rotate(
+            matrix_transform, math.radians(self.a_y),
+            glm.vec3(0.0, 1.0, 0.0))
+        matrix_transform = glm.rotate(
+            matrix_transform, math.radians(self.a_z),
+            glm.vec3(0.0, 0.0, 1.0))
+
+        matrix_transform = np.array(matrix_transform).T
+
+        if(self.invert_norms): return -matrix_transform
+
+        return matrix_transform
+
+
+
+
     # load from file: loads an object
     # RECEIVES: an '.obj' file, contening the informations of the model
     def load_from_file(self, filename):
@@ -121,7 +151,7 @@ class Object3D:
                 self.__tex_coords.append(values[1:3])
 
             # recuperndo normais
-            if values[0] == 'vn':                       # <------------------ if becomes elif?
+            if values[0] == 'vn':
                 self.__norms_coords.append(values[1:4])
 
             # recuperando faces
@@ -132,7 +162,7 @@ class Object3D:
                 for v in values[1:]:
                     w = v.split('/')
                     self.__vert_indexes.append(int(w[0]))
-                    self.__norms_indexes.append(int(w[2]))                  # <--------- não sei se é isso mesmo
+                    self.__norms_indexes.append(int(w[2]))
                     if len(w) >= 2 and len(w[1]) > 0:
                         self.__tex_indexes.append(int(w[1]))
                     else:
@@ -186,8 +216,12 @@ class Object3D:
         trans_mat = self.__model()                  # qualquer transformação adicional é
         for mat in extra_mats:                      # é aplicada à matriz model
             trans_mat = np.matmul(mat, trans_mat)
+
+        norms_mat = self.__normal_model()
         
         glUniformMatrix4fv(model_location, 1, GL_TRUE, trans_mat)       # changes the transformation matrix
+        loc_norms_model = glGetUniformLocation(program_ref, "norms_model")
+        glUniformMatrix4fv(loc_norms_model, 1, GL_TRUE, norms_mat)
 
         loc_ka = glGetUniformLocation(program_ref, "ka") # recuperando localizacao da variavel ka na GPU
         glUniform1f(loc_ka, self.ka) ### envia ka pra gpu
