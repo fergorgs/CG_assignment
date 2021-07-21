@@ -68,6 +68,9 @@ class Object3D:
         self.ks = 0                     # coeficiente de reflexão especular
         self.ns = 1                     # expoente de reflexão especular
 
+        self.light_one_enabled = True   # boolean indicando se o objeto deve sofrer acao da luz #1
+        self.light_two_enabled = True  # boolean indicando se o objeto deve sofrer acao da luz #2
+
         self.na_x = 0                    # x axies angle, around it's center
         self.na_y = 0                    # y axies angle, around it's center
         self.na_z = 0                    # z axies angle, around it's center
@@ -234,6 +237,13 @@ class Object3D:
 
         loc_ns = glGetUniformLocation(program_ref, "ns") # recuperando localizacao da variavel ns na GPU
         glUniform1f(loc_ns, self.ns) ### envia ns pra gpu 
+
+        loc_lo_enabled = glGetUniformLocation(program_ref, "light1Enabled") # recuperando localizacao do ativador da luz 1 na GPU
+        glUniform1f(loc_lo_enabled, float(self.light_one_enabled)) ### envia 1.0 se luz 1 estiver ativa, senao envia 0 
+
+        loc_lt_enabled = glGetUniformLocation(program_ref, "light2Enabled") # recuperando localizacao do ativador da luz 2 na GPU
+        glUniform1f(loc_lt_enabled, float(self.light_two_enabled)) ### envia 1.0 se luz 2 estiver ativa, senao envia 0 
+
 
         # for every component, changes the texture and renders only the 
         # vertecies to that component, using the values in the 
