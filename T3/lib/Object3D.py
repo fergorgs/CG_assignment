@@ -71,10 +71,10 @@ class Object3D:
         self.light_one_enabled = True   # boolean indicando se o objeto deve sofrer acao da luz #1
         self.light_two_enabled = True  # boolean indicando se o objeto deve sofrer acao da luz #2
 
-        self.na_x = 0                    # x axies angle, around it's center
-        self.na_y = 0                    # y axies angle, around it's center
-        self.na_z = 0                    # z axies angle, around it's center
-        self.invert_norms = False
+        self.na_x = 0                    # angulo das normais no eixo x
+        self.na_y = 0                    # angulo das normais no eixo y
+        self.na_z = 0                    # angulo das normais no eixo z
+        self.invert_norms = False        # inverter o sentido das normais (1,1,1) ---> (-1,-1,-1)
 
 
 
@@ -105,9 +105,11 @@ class Object3D:
 
 
 
-    # __model: calculates the model's model matrix
-    # Using glm functions, applies translation, rotation in the 3 axies,
-    # and scale to the model
+    # __normal_model: calcula a matriz para os vetores normais do modelo
+    # utilizamos uma matriz separada para as normais pois isso torna mais fácil manipular
+    # as normais sem alterar o modelo. Isso se mostrou necessário no caso do modelo da
+    # casa, por exemplo, onde queriamos inverter o sentido das normais para que elas passassem
+    # a apontar para o interior da casa
     def __normal_model(self):
         matrix_transform = glm.mat4(1.0)
                                                         
@@ -224,7 +226,7 @@ class Object3D:
         
         glUniformMatrix4fv(model_location, 1, GL_TRUE, trans_mat)       # changes the transformation matrix
         loc_norms_model = glGetUniformLocation(program_ref, "norms_model")
-        glUniformMatrix4fv(loc_norms_model, 1, GL_TRUE, norms_mat)
+        glUniformMatrix4fv(loc_norms_model, 1, GL_TRUE, norms_mat)      # muda a matriz model das normais na GPU
 
         loc_ka = glGetUniformLocation(program_ref, "ka") # recuperando localizacao da variavel ka na GPU
         glUniform1f(loc_ka, self.ka) ### envia ka pra gpu
@@ -255,25 +257,3 @@ class Object3D:
             
         # returns the offset of the next model to be rendered (curent offset + current model's length)
         return init_offset + self.__len
-
-    # def get_txt_ids_array(self, filename, base_txt_id):
-
-    #     textures = {}
-    #     txt_ids = []
-    #     cnt = base_txt_id
-    #     for line in open(filename, "r"):
-    #         if line.startswith('#'):
-    #             continue
-    #         values = line.split()
-    #         if not values:
-    #             continue
-
-    #         if values[0] in ('usemtl', 'usemat'):
-    #             if(values[1] in textures):
-    #                 txt_ids.append(textures[values[1]])
-    #             else:
-    #                 textures[values[1]] = cnt
-    #                 txt_ids.append(textures[values[1]])
-    #                 cnt += 1
-        
-    #     return txt_ids
