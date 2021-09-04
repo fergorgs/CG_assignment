@@ -1,7 +1,7 @@
 # CG_assignment
 ## Computer Graphics' assignment
 
-These are three assignments made by me and my colleagues when taking computer graphics' classes.
+These are three assignments made for the computer graphics' classes.
 They were made using python notebooks and the OpenGL libraries. All three can be run easily following
 the "hot to run" file, inside each folder.
 
