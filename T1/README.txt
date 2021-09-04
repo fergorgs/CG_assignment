@@ -1,15 +1,15 @@
 HOW TO RUN
-- rodar o notebook principal "T1 - CG.ipynb"
-- a pasta lib2d possui arquivos com funções auxiliares, usadas ao longo do código principal
+- run "T1 - CG.ipynb"
+-  "lib2d" folder has some auxiliary functions used in the main code
 
 
 CONTROLS
-- movimentos do personagem: ASDW
-- rotação do catavendo: left arrow, right arrow
-- tamanho da árvore: up arrow, down arrow
+- player movement: ASDW
+- pinwheel angle: left arrow, right arrow
+- tree size: up arrow, down arrow
 
 
-LINK DO VÍDEO NO YOUTUBE:
+YOUTUBE VIDEO:
 https://youtu.be/0wCIOm7_rCg
 
 
