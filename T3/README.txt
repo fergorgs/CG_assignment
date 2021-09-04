@@ -1,17 +1,17 @@
 HOW TO RUN
-- rodar o notebook principal "T3 - CG.ipynb"
-- a pasta lib possui arquivos com funções auxiliares, usadas ao longo do código principal
+- run "T3 - CG.ipynb"
+-  "lib" folder has some auxiliary functions used in the main code
 
 
-CONTROLES
-- movimentos da câmera: ASDW e mouse
-- FOV: scroll do mouse
-- Angulo de rotação do sol: setas esquerda e direita
-- Intensidade da luz ambiente: U e P
-- Intensidade das luzes interna e externa: (1 e shift+1) e (2 e shift+2), respectivamente
+CONTROLS
+- camera: ASDW and mouse
+- FOV: mouse scroll
+- Sun angle: left and right arrows
+- Ambient light intensity: U and P
+- Indoors and outdoors light intensity: (1 and shift+1) and (2 and shift+2)
 
 
-LINK DO VÍDEO NO YOUTUBE:
+YOUTUBE VIDEO:
 https://youtu.be/Vp-jSeLEljM
 
 
