@@ -1,14 +1,13 @@
 HOW TO RUN
-- rodar o notebook principal "T2 - CG.ipynb"
-- a pasta lib possui arquivos com funções auxiliares, usadas ao longo do código principal
+- run "T2 - CG.ipynb"
+-  "lib" folder has some auxiliary functions used in the main code
 
 
 CONTROLS
-- movimentos da câmera: ASDW
-- foco da câmera: mouse
+- camera: ASDW and mouse
 
 
-LINK DO VÍDEO NO YOUTUBE:
+YOUTUBE VIDEO:
 https://youtu.be/IK04eyyK9eg
 
 
